@@ -6,9 +6,12 @@ public class BallCollisionHandler : MonoBehaviour
     private GameObject ballPrefab;
     private Transform ballParent;
 
+    private DragAndShoot dragAndShoot;
+
     private void Start()
     {
         ballParent = GameObject.Find("Balls").transform;
+        dragAndShoot = ballParent.GetComponent<DragAndShoot>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -29,6 +32,8 @@ public class BallCollisionHandler : MonoBehaviour
 
             newBall.GetComponent<Rigidbody>().AddForce(Vector3.forward * 3f, ForceMode.Impulse);
             newBall.GetComponent<Rigidbody>().velocity = Vector3.forward * 3f;
+
+            dragAndShoot.AddBallToList(newBall.transform);
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DragAndShoot : MonoBehaviour
@@ -19,8 +20,8 @@ public class DragAndShoot : MonoBehaviour
     private Vector3 lastPosition;
     private Vector3 shootDirection;
 
-    List<Transform> fillings = new List<Transform>();
-    Transform highestFilling;
+    private List<Transform> ballList = new List<Transform>();
+    private Transform targetBall;
     private float highestZ = 0f;
 
     private Rigidbody rb;
@@ -64,30 +65,27 @@ public class DragAndShoot : MonoBehaviour
 
     private void GetTargetBall()
     {
-        foreach (Transform child in transform)
+        for (int i = 0; i < ballList.Count; i++)
         {
-            if (child.CompareTag("ActiveBall"))
-                continue;
-
-            fillings.Add(child);
-        }
-
-        for (int i = 0; i < fillings.Count; i++)
-        {
-            if (fillings[i].position.z > highestZ)
+            if (ballList[i].position.z > highestZ)
             {
-                highestFilling = fillings[i];
-                highestZ = fillings[i].position.z;
+                targetBall = ballList[i];
+                highestZ = ballList[i].position.z;
+
+                firstBall = targetBall;
+                rb = firstBall.GetComponent<Rigidbody>();
             }
         }
 
-        //fillings = fillings.OrderBy(filling => filling.transform.position.z).ToList();
-        //highestFilling = fillings.Last();
-
-        if (highestFilling == null)
+        if (targetBall == null)
             return;
 
-        cameraMovement.UpdateTargetObject(highestFilling);
+        cameraMovement.UpdateTargetObject(targetBall);
+    }
+
+    public void AddBallToList(Transform ball)
+    {
+        ballList.Add(ball);
     }
 
     private void RenderLine()
@@ -100,7 +98,7 @@ public class DragAndShoot : MonoBehaviour
         lineRenderer.SetPosition(1, lastPosition);
     }
 
-    void Shoot()
+    private void Shoot()
     {
         isShoot = true;
 
