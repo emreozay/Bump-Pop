@@ -28,6 +28,8 @@ public class BallCollisionHandler : MonoBehaviour
     {
         if (other.CompareTag("Finish"))
         {
+            dragAndShoot.DisableShoot();
+
             Rigidbody ballRigidbody = GetComponent<Rigidbody>();
 
             ballRigidbody.velocity = Vector3.zero;

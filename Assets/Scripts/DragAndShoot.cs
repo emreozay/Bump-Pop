@@ -28,7 +28,7 @@ public class DragAndShoot : MonoBehaviour
     private CameraMovement cameraMovement;
 
     private float viewportXPosition;
-    private bool isShoot;
+    private bool canShoot = true;
 
     private void Awake()
     {
@@ -38,6 +38,9 @@ public class DragAndShoot : MonoBehaviour
 
     private void Update()
     {
+        if (!canShoot)
+            return;
+
         if (Input.GetMouseButtonDown(0))
         {
             rb.velocity = Vector3.zero;
@@ -100,11 +103,16 @@ public class DragAndShoot : MonoBehaviour
 
     private void Shoot()
     {
-        isShoot = true;
+        canShoot = true;
 
         shootDirection.x = lastPosition.x - firstPosition.x;
         shootDirection.y = 0;
         shootDirection.z = 10;
         rb.AddForce(shootDirection * forceMultiplier, ForceMode.Impulse);
+    }
+
+    public void DisableShoot()
+    {
+        canShoot = false;
     }
 }
