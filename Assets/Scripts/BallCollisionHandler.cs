@@ -24,14 +24,28 @@ public class BallCollisionHandler : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Finish"))
+        {
+            Rigidbody ballRigidbody = GetComponent<Rigidbody>();
+
+            ballRigidbody.velocity = Vector3.zero;
+            //ballRigidbody.AddForce(new Vector3(0, -50, 0.5f) * 30f, ForceMode.Impulse);
+            ballRigidbody.AddForce(0, -10, 10, ForceMode.Impulse);
+            //ballRigidbody.AddTorque(new Vector3(0, -30, 1) * 20f, ForceMode.Impulse);
+        }
+    }
+
     public void SpawnBalls()
     {
         for (int i = 0; i < 20; i++)
         {
             GameObject newBall = Instantiate(ballPrefab, transform.position + Vector3.forward * 2.5f, Quaternion.identity, ballParent);
 
-            newBall.GetComponent<Rigidbody>().AddForce(Vector3.forward * 3f, ForceMode.Impulse);
-            newBall.GetComponent<Rigidbody>().velocity = Vector3.forward * 3f;
+            Rigidbody newBallRigidbody = newBall.GetComponent<Rigidbody>();
+            newBallRigidbody.AddForce(Vector3.forward * 3f, ForceMode.Impulse);
+            newBallRigidbody.velocity = Vector3.forward * 3f;
 
             dragAndShoot.AddBallToList(newBall.transform);
         }
