@@ -1,13 +1,14 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(Collider))]
 public class DragAndShoot : MonoBehaviour
 {
     [SerializeField]
     private LineRenderer lineRenderer;
     [SerializeField]
     private Camera mainCamera;
+
+    [SerializeField]
+    private Transform firstBall;
 
     [SerializeField]
     private float forceMultiplier = 3f;
@@ -23,7 +24,7 @@ public class DragAndShoot : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = firstBall.GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -34,7 +35,7 @@ public class DragAndShoot : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
 
             lineRenderer.positionCount = 2;
-            firstPosition = new Vector3(transform.position.x, 0, transform.position.z);
+            firstPosition = new Vector3(firstBall.position.x, 0, firstBall.position.z);
             lineRenderer.SetPosition(0, firstPosition);
         }
 
@@ -56,7 +57,7 @@ public class DragAndShoot : MonoBehaviour
         viewportXPosition = mainCamera.ScreenToViewportPoint(Input.mousePosition).x;
         lastPosition.x = Mathf.Lerp(-10f, 10f, viewportXPosition);
         lastPosition.y = 0;
-        lastPosition.z = transform.position.z + 10;
+        lastPosition.z = firstBall.position.z + 10;
 
         lineRenderer.SetPosition(1, lastPosition);
     }
