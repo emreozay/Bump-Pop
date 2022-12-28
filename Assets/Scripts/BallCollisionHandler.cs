@@ -4,6 +4,12 @@ public class BallCollisionHandler : MonoBehaviour
 {
     [SerializeField]
     private GameObject ballPrefab;
+    private Transform ballParent;
+
+    private void Start()
+    {
+        ballParent = GameObject.Find("Balls").transform;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -19,7 +25,7 @@ public class BallCollisionHandler : MonoBehaviour
     {
         for (int i = 0; i < 20; i++)
         {
-            GameObject newBall = Instantiate(ballPrefab, transform.position + Vector3.forward * 2.5f, Quaternion.identity);
+            GameObject newBall = Instantiate(ballPrefab, transform.position + Vector3.forward * 2.5f, Quaternion.identity, ballParent);
 
             newBall.GetComponent<Rigidbody>().AddForce(Vector3.forward * 3f, ForceMode.Impulse);
             newBall.GetComponent<Rigidbody>().velocity = Vector3.forward * 3f;
