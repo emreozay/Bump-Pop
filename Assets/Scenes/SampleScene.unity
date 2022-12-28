@@ -885,7 +885,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lineRenderer: {fileID: 1545544118}
   mainCamera: {fileID: 963194227}
-  forceMultiplier: 5
+  forceMultiplier: 3
 --- !u!135 &1162487347
 SphereCollider:
   m_ObjectHideFlags: 0
