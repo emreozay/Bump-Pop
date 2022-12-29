@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ActiveBall
   - InactiveBall
+  - Plane
   layers:
   - Default
   - TransparentFX
