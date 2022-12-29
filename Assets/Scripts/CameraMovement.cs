@@ -15,7 +15,7 @@ public class CameraMovement : MonoBehaviour
     void LateUpdate()
     {
         Vector3 newPosition = targetBall.position + offset;
-        //newPosition.x = 0;
+        newPosition.x /= 1.5f;
 
         transform.position = newPosition;
     }
