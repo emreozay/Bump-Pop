@@ -33,9 +33,14 @@ public class BallCollisionHandler : MonoBehaviour
             Rigidbody ballRigidbody = GetComponent<Rigidbody>();
 
             ballRigidbody.velocity = Vector3.zero;
-            //ballRigidbody.AddForce(new Vector3(0, -50, 0.5f) * 30f, ForceMode.Impulse);
-            ballRigidbody.AddForce(0, -10, 10, ForceMode.Impulse);
-            //ballRigidbody.AddTorque(new Vector3(0, -30, 1) * 20f, ForceMode.Impulse);
+            ballRigidbody.AddForce(Vector3.forward * 15f, ForceMode.Impulse);
+            //ballRigidbody.AddTorque(Vector3.right*100f, ForceMode.Impulse);
+            //ballRigidbody.velocity = Vector3.forward * 15f;
+
+            //ballRigidbody.AddForce(new Vector3(0, -1f, 6f) * 1f, ForceMode.Impulse);
+            //ballRigidbody.AddForce(0, -10, 10, ForceMode.Impulse);
+            //ballRigidbody.velocity = Vector3.forward * 5f;
+
         }
     }
 
@@ -47,7 +52,7 @@ public class BallCollisionHandler : MonoBehaviour
 
             Rigidbody newBallRigidbody = newBall.GetComponent<Rigidbody>();
             newBallRigidbody.AddForce(Vector3.forward * 3f, ForceMode.Impulse);
-            newBallRigidbody.velocity = Vector3.forward * 3f;
+            newBallRigidbody.velocity = Vector3.forward * 30f;
 
             dragAndShoot.AddBallToList(newBall.transform);
         }

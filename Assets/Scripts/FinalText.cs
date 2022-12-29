@@ -22,8 +22,13 @@ public class FinalText : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("InactiveBall") && remainingBall > 0)
+        if (other.CompareTag("InactiveBall"))
         {
+            //other.GetComponent<Rigidbody>().AddForce(Vector3.forward * 15f, ForceMode.Impulse);
+
+            if (remainingBall <= 0)
+                return;
+
             remainingTimeForLose = 2f;
             canFinish = true;
 
