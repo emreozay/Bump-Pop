@@ -11074,7 +11074,7 @@ GameObject:
   - component: {fileID: 1545544119}
   - component: {fileID: 1545544118}
   m_Layer: 0
-  m_Name: Line
+  m_Name: Aim Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11121,9 +11121,7 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 10}
+  m_Positions: []
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 2
