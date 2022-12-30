@@ -4094,7 +4094,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 585337718}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 666320982}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: RestartLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &585337718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4628,6 +4640,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0d8db64f9b07247a183e0826c38205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelText: {fileID: 867402552}
+  moneyText: {fileID: 1221642444}
+  ballText: {fileID: 1257957947}
 --- !u!4 &666320983
 Transform:
   m_ObjectHideFlags: 0
@@ -7806,6 +7821,7 @@ MonoBehaviour:
   mainCamera: {fileID: 963194227}
   firstBall: {fileID: 4816423511418120504}
   forceMultiplier: 5
+  startPanel: {fileID: 247607426}
 --- !u!1001 &1115937817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9824,6 +9840,7 @@ GameObject:
   - component: {fileID: 1408409818}
   - component: {fileID: 1408409817}
   - component: {fileID: 1408409816}
+  - component: {fileID: 1408409819}
   m_Layer: 5
   m_Name: BuyButton
   m_TagString: Untagged
@@ -9896,7 +9913,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1408409817}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 666320982}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: BuyIncome
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1408409817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9935,6 +9964,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1408409814}
   m_CullTransparentMesh: 1
+--- !u!114 &1408409819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408409814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad86d3b5e9fdf4849829a36253021015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1410996782
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10133,7 +10174,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1412468937}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 666320982}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: RestartLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1412468937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12142,7 +12195,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1713662941}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 666320982}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: NextLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1713662941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13105,6 +13170,7 @@ GameObject:
   - component: {fileID: 1978623264}
   - component: {fileID: 1978623263}
   - component: {fileID: 1978623262}
+  - component: {fileID: 1978623265}
   m_Layer: 5
   m_Name: BuyButton
   m_TagString: Untagged
@@ -13177,7 +13243,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1978623263}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 666320982}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: BuyBall
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1978623263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13216,6 +13294,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1978623260}
   m_CullTransparentMesh: 1
+--- !u!114 &1978623265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978623260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad86d3b5e9fdf4849829a36253021015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1998355552
 PrefabInstance:
   m_ObjectHideFlags: 0

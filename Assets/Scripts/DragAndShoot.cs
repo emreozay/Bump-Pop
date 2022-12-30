@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class DragAndShoot : MonoBehaviour
 {
@@ -30,6 +29,11 @@ public class DragAndShoot : MonoBehaviour
     private float viewportXPosition;
     private bool canShoot = true;
 
+    public static bool isStopNow;
+
+    [SerializeField]
+    private GameObject startPanel;
+
     private void Awake()
     {
         rb = firstBall.GetComponent<Rigidbody>();
@@ -38,11 +42,16 @@ public class DragAndShoot : MonoBehaviour
 
     private void Update()
     {
+        if (isStopNow)
+            return;
+
         if (!canShoot)
             return;
 
         if (Input.GetMouseButtonDown(0))
         {
+            startPanel.SetActive(false); // DELETE LATER!!!
+
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
 
