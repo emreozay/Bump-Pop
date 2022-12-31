@@ -1,10 +1,22 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CheckButtonClick : MonoBehaviour, IPointerEnterHandler
+public class CheckButtonClick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    public void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerDown(PointerEventData eventData)
     {
-        DragAndShoot.isStopNow = true;
+        GameManager.Instance.CanGameStart = false;
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        StartCoroutine(WaitForStart());
+    }
+
+    IEnumerator WaitForStart()
+    {
+        yield return new WaitForEndOfFrame();
+        GameManager.Instance.CanGameStart = true;
     }
 }
