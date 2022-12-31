@@ -3,9 +3,13 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject startPanel;
+
     [SerializeField]
     private TextMeshProUGUI levelText;
     [SerializeField]
@@ -13,8 +17,25 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI ballText;
 
+    [Header("More Ball")]
+    [SerializeField]
+    private Button ballButton;
+    [SerializeField]
+    private TextMeshProUGUI ballLevelText;
+    [SerializeField]
+    private TextMeshProUGUI ballPriceText;
+
+    [Header("More Income")]
+    [SerializeField]
+    private Button incomeButton;
+    [SerializeField]
+    private TextMeshProUGUI incomeLevelText;
+    [SerializeField]
+    private TextMeshProUGUI incomePriceText;
+
     public static Action<int> BallText;
     public static Action<int> MoneyText;
+    public static Action DisableStartPanel;
 
     private int ballCount;
     private int moneyCount;
@@ -23,13 +44,22 @@ public class UIManager : MonoBehaviour
     {
         BallText += UpdateBallText;
         MoneyText += UpdateMoneyText;
+        DisableStartPanel += CloseStartPanel;
     }
 
     private void Start()
     {
         Application.targetFrameRate = Screen.currentResolution.refreshRate;
 
-        levelText.text = "LEVEL " + (SceneManager.GetActiveScene().buildIndex + 1);
+        moneyCount = GameManager.Instance.TotalMoney;
+
+        UpdateButtonsVisibility();
+        UpdateAllTexts();
+    }
+
+    private void CloseStartPanel()
+    {
+        startPanel.SetActive(false);
     }
 
     private void UpdateBallText(int newBall)
@@ -41,6 +71,7 @@ public class UIManager : MonoBehaviour
     private void UpdateMoneyText(int newMoney)
     {
         moneyCount += newMoney;
+        GameManager.Instance.SetTotalMoney(moneyCount);
         StartCoroutine(UpdateTextSlowly(moneyCount, moneyText));
     }
 
@@ -56,19 +87,41 @@ public class UIManager : MonoBehaviour
 
     public void BuyBall()
     {
-        StartCoroutine(WaitForStop());
+        if (!GameManager.Instance.CanUpgradeBall())
+            return;
+
+        GameManager.Instance.IncreaseBallPerBall();
+        UpdateButtonsVisibility();
+        UpdateAllTexts();
     }
 
     public void BuyIncome()
     {
-        StartCoroutine(WaitForStop());
+        if (!GameManager.Instance.CanUpgradeIncome())
+            return;
+
+        GameManager.Instance.IncreaseIncomePerBall();
+        UpdateButtonsVisibility();
+        UpdateAllTexts();
     }
 
-    IEnumerator WaitForStop()
+    private void UpdateButtonsVisibility()
     {
-        yield return new WaitForEndOfFrame();
+        ballButton.interactable = GameManager.Instance.CanUpgradeBall();
+        incomeButton.interactable = GameManager.Instance.CanUpgradeIncome();
+    }
 
-        DragAndShoot.isStopNow = false;
+    private void UpdateAllTexts()
+    {
+        levelText.text = "LEVEL " + (SceneManager.GetActiveScene().buildIndex + 1);
+
+        moneyText.text = GameManager.Instance.TotalMoney.ToString();
+
+        ballLevelText.text = "LVL " + GameManager.Instance.BallLevel;
+        ballPriceText.text = GameManager.Instance.BallPrice.ToString();
+
+        incomeLevelText.text = "LVL " + GameManager.Instance.IncomeLevel;
+        incomePriceText.text = GameManager.Instance.IncomePrice.ToString();
     }
 
     IEnumerator UpdateTextSlowly(int count, TextMeshProUGUI textForUpdate)
@@ -88,5 +141,6 @@ public class UIManager : MonoBehaviour
     {
         BallText -= UpdateBallText;
         MoneyText -= UpdateMoneyText;
+        DisableStartPanel -= CloseStartPanel;
     }
 }
