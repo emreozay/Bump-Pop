@@ -29,11 +29,6 @@ public class DragAndShoot : MonoBehaviour
     private float viewportXPosition;
     private bool canShoot = true;
 
-    public static bool isStopNow;
-
-    [SerializeField]
-    private GameObject startPanel;
-
     private void Awake()
     {
         rb = firstBall.GetComponent<Rigidbody>();
@@ -42,7 +37,7 @@ public class DragAndShoot : MonoBehaviour
 
     private void Update()
     {
-        if (isStopNow)
+        if (!GameManager.Instance.CanGameStart)
             return;
 
         if (!canShoot)
@@ -50,7 +45,7 @@ public class DragAndShoot : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            startPanel.SetActive(false); // DELETE LATER!!!
+            UIManager.DisableStartPanel();
 
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;

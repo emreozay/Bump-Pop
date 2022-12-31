@@ -46,8 +46,9 @@ public class BallCollisionHandler : MonoBehaviour
 
     public void SpawnBalls()
     {
-        int newBallCount = 20;
-        for (int i = 0; i < newBallCount; i++)
+        int ballPerBall = GameManager.Instance.BallPerBall;
+
+        for (int i = 0; i < ballPerBall; i++)
         {
             GameObject newBall = Instantiate(ballPrefab, transform.position + Vector3.forward * 2.5f, Quaternion.identity, ballParent);
 
@@ -58,6 +59,7 @@ public class BallCollisionHandler : MonoBehaviour
             dragAndShoot.AddBallToList(newBall.transform);
         }
 
-        UIManager.BallText(newBallCount);
+        UIManager.MoneyText(GameManager.Instance.IncomePerBall);
+        UIManager.BallText(ballPerBall);
     }
 }
