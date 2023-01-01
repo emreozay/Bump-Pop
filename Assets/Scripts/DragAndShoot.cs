@@ -40,10 +40,7 @@ public class DragAndShoot : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.Instance.CanGameStart)
-            return;
-
-        if (!canShoot)
+        if (!GameManager.Instance.CanGameStart || !canShoot)
             return;
 
         if (Input.GetMouseButtonDown(0))
