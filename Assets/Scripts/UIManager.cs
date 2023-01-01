@@ -15,6 +15,14 @@ public class UIManager : MonoBehaviour
     private GameObject losePanel;
 
     [SerializeField]
+    private DragAndShoot dragAndShoot;
+    [SerializeField]
+    private Transform finishLine;
+
+    [SerializeField]
+    private Slider progressBar;
+
+    [SerializeField]
     private TextMeshProUGUI levelText;
     [SerializeField]
     private TextMeshProUGUI moneyText;
@@ -43,6 +51,7 @@ public class UIManager : MonoBehaviour
     public static Action LevelCompleted;
     public static Action LevelFailed;
 
+    private Transform targetBall;
     private int ballCount;
     private int moneyCount;
 
@@ -63,6 +72,18 @@ public class UIManager : MonoBehaviour
 
         UpdateButtonsVisibility();
         UpdateAllTexts();
+    }
+
+    private void Update()
+    {
+        SetProgressBar();
+    }
+
+    private void SetProgressBar()
+    {
+        targetBall = dragAndShoot.GetFirstBall();
+
+        progressBar.value = targetBall.position.z / finishLine.position.z;
     }
 
     private void CloseStartPanel()

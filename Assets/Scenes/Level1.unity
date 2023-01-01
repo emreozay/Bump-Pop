@@ -4687,6 +4687,9 @@ MonoBehaviour:
   startPanel: {fileID: 247607426}
   winPanel: {fileID: 1619614680}
   losePanel: {fileID: 910322548}
+  dragAndShoot: {fileID: 1110953160}
+  finishLine: {fileID: 867326998}
+  progressBar: {fileID: 1361629015}
   levelText: {fileID: 867402552}
   moneyText: {fileID: 1221642444}
   ballText: {fileID: 1257957947}
@@ -6350,6 +6353,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a816923813eef9145a4b7f589d5ef935, type: 3}
+--- !u!4 &867326998 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3590069240513903431, guid: 068df3124d273964fb6e0725ac3d8633, type: 3}
+  m_PrefabInstance: {fileID: 92714648}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &867402550
 GameObject:
   m_ObjectHideFlags: 0

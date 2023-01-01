@@ -47,6 +47,12 @@ public class DragAndShoot : MonoBehaviour
         if (!GameManager.Instance.CanGameStart || !canShoot)
             return;
 
+        GetTargetBall();
+        CheckLose();
+
+        if (isShot)
+            return;
+
         if (Input.GetMouseButtonDown(0))
         {
             UIManager.DisableStartPanel();
@@ -71,9 +77,6 @@ public class DragAndShoot : MonoBehaviour
 
             Shoot();
         }
-
-        GetTargetBall();
-        CheckLose();
     }
 
     private void GetTargetBall()
@@ -124,6 +127,11 @@ public class DragAndShoot : MonoBehaviour
     public void AddBallToList(Transform ball)
     {
         ballList.Add(ball);
+    }
+
+    public Transform GetFirstBall()
+    {
+        return firstBall;
     }
 
     private void RenderLine()
