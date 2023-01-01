@@ -63,6 +63,7 @@ public class DragAndShoot : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             lineRenderer.positionCount = 0;
+            cameraMovement.CanRotate(false);
 
             Shoot();
         }
@@ -103,6 +104,8 @@ public class DragAndShoot : MonoBehaviour
         lastPosition.z = firstBall.position.z + 10;
 
         lineRenderer.SetPosition(1, lastPosition);
+
+        cameraMovement.LookAtObject(lastPosition);
     }
 
     private void Shoot()

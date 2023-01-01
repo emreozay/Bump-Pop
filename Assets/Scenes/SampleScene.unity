@@ -6987,6 +6987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetBall: {fileID: 4816423511418120504}
+  followSpeed: 4
 --- !u!1001 &994628879
 PrefabInstance:
   m_ObjectHideFlags: 0
