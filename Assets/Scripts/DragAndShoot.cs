@@ -26,6 +26,8 @@ public class DragAndShoot : MonoBehaviour
     private Rigidbody rb;
     private CameraMovement cameraMovement;
 
+    private Material lineMaterial;
+
     private float viewportXPosition;
     private bool canShoot = true;
 
@@ -33,6 +35,7 @@ public class DragAndShoot : MonoBehaviour
     {
         rb = firstBall.GetComponent<Rigidbody>();
         cameraMovement = mainCamera.GetComponent<CameraMovement>();
+        lineMaterial = lineRenderer.material;
     }
 
     private void Update()
@@ -106,6 +109,8 @@ public class DragAndShoot : MonoBehaviour
         lineRenderer.SetPosition(1, lastPosition);
 
         cameraMovement.LookAtObject(lastPosition);
+
+        lineMaterial.mainTextureOffset += Vector2.right * Time.deltaTime;
     }
 
     private void Shoot()
