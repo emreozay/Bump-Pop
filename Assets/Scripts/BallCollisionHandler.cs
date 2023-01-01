@@ -8,6 +8,8 @@ public class BallCollisionHandler : MonoBehaviour
 
     private DragAndShoot dragAndShoot;
 
+    private bool isCollide;
+
     private void Start()
     {
         ballParent = GameObject.Find("Balls").transform;
@@ -18,8 +20,8 @@ public class BallCollisionHandler : MonoBehaviour
     {
         if (collision.transform.CompareTag("ActiveBall"))
         {
+            isCollide = true;
             collision.transform.tag = "InactiveBall";
-
             collision.gameObject.GetComponent<BallCollisionHandler>().SpawnBalls();
         }
     }
@@ -40,8 +42,12 @@ public class BallCollisionHandler : MonoBehaviour
             //ballRigidbody.AddForce(new Vector3(0, -1f, 6f) * 1f, ForceMode.Impulse);
             //ballRigidbody.AddForce(0, -10, 10, ForceMode.Impulse);
             //ballRigidbody.velocity = Vector3.forward * 5f;
-
         }
+    }
+
+    public bool IsCollideWithBall()
+    {
+        return isCollide;
     }
 
     public void SpawnBalls()

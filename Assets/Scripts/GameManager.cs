@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -6,6 +7,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get { return _instance; } }
 
     private bool canGameStart = true;
+
+    private int level = 1;
 
     private int totalBall;
     private int ballLevel = 1;
@@ -16,6 +19,8 @@ public class GameManager : MonoBehaviour
     private int incomeLevel = 1;
     private int incomePrice = 10;
     private int incomePerBall = 1;
+
+    public int Level { get { return level; } }
 
     public int TotalBall { get { return totalBall; } }
     public int BallLevel { get { return ballLevel; } }
@@ -39,11 +44,20 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
         }
+
+        DontDestroyOnLoad(this.gameObject);
     }
 
     private void Start()
     {
         LoadData();
+
+        SceneManager.LoadScene(level - 1);
+    }
+
+    public void UpdateLevel()
+    {
+        level++;
     }
 
     public void SetTotalMoney(int money)
@@ -86,6 +100,8 @@ public class GameManager : MonoBehaviour
 
     private void LoadData()
     {
+        level = PlayerPrefs.GetInt("LEVEL", 1);
+
         totalBall = PlayerPrefs.GetInt("TOTAL_BALL", 1);
         ballLevel = PlayerPrefs.GetInt("BALL_LEVEL", 1);
         ballPrice = PlayerPrefs.GetInt("BALL_PRICE", 10);
@@ -99,6 +115,8 @@ public class GameManager : MonoBehaviour
 
     private void SaveData()
     {
+        PlayerPrefs.SetInt("LEVEL", level);
+
         PlayerPrefs.SetInt("TOTAL_BALL", totalBall);
         PlayerPrefs.SetInt("BALL_LEVEL", ballLevel);
         PlayerPrefs.SetInt("BALL_PRICE", ballPrice);

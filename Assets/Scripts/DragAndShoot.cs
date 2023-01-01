@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -23,18 +24,21 @@ public class DragAndShoot : MonoBehaviour
     private Transform targetBall;
     private float highestZ = 0f;
 
-    private Rigidbody rb;
+    private Rigidbody firstBallRigidbody;
     private CameraMovement cameraMovement;
+    private BallCollisionHandler ballCollisionHandler;
 
     private Material lineMaterial;
 
     private float viewportXPosition;
     private bool canShoot = true;
+    private bool isShot;
 
     private void Awake()
     {
-        rb = firstBall.GetComponent<Rigidbody>();
+        firstBallRigidbody = firstBall.GetComponent<Rigidbody>();
         cameraMovement = mainCamera.GetComponent<CameraMovement>();
+        ballCollisionHandler = firstBall.GetComponent<BallCollisionHandler>();
         lineMaterial = lineRenderer.material;
     }
 
@@ -47,8 +51,8 @@ public class DragAndShoot : MonoBehaviour
         {
             UIManager.DisableStartPanel();
 
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
+            firstBallRigidbody.velocity = Vector3.zero;
+            firstBallRigidbody.angularVelocity = Vector3.zero;
 
             lineRenderer.positionCount = 2;
             firstPosition = new Vector3(firstBall.position.x, 0, firstBall.position.z);
@@ -69,6 +73,7 @@ public class DragAndShoot : MonoBehaviour
         }
 
         GetTargetBall();
+        CheckLose();
     }
 
     private void GetTargetBall()
@@ -80,8 +85,14 @@ public class DragAndShoot : MonoBehaviour
                 targetBall = ballList[i];
                 highestZ = ballList[i].position.z;
 
+                if (firstBall != targetBall)
+                {
+                    isShot = false;
+                }
+
                 firstBall = targetBall;
-                rb = firstBall.GetComponent<Rigidbody>();
+                firstBallRigidbody = firstBall.GetComponent<Rigidbody>();
+                ballCollisionHandler = firstBall.GetComponent<BallCollisionHandler>();
             }
         }
 
@@ -89,6 +100,25 @@ public class DragAndShoot : MonoBehaviour
             return;
 
         cameraMovement.UpdateTargetObject(targetBall);
+    }
+
+    private void CheckLose()
+    {
+        if (isShot)
+            StartCoroutine(WaitForCheck());
+    }
+
+    private IEnumerator WaitForCheck()
+    {
+        yield return new WaitForSeconds(1f);
+
+        if (firstBallRigidbody.velocity.z <= 3.5f)
+        {
+            if (!ballCollisionHandler.IsCollideWithBall())
+            {
+                UIManager.LevelFailed();
+            }
+        }
     }
 
     public void AddBallToList(Transform ball)
@@ -113,11 +143,12 @@ public class DragAndShoot : MonoBehaviour
     private void Shoot()
     {
         canShoot = true;
+        isShot = true;
 
         shootDirection.x = lastPosition.x - firstPosition.x;
         shootDirection.y = 0;
         shootDirection.z = 10;
-        rb.AddForce(shootDirection * forceMultiplier, ForceMode.Impulse);
+        firstBallRigidbody.AddForce(shootDirection * forceMultiplier, ForceMode.Impulse);
     }
 
     public void DisableShoot()

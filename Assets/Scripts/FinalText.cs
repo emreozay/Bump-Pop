@@ -53,6 +53,9 @@ public class FinalText : MonoBehaviour
             {
                 print("Finish");
                 canFinish = false;
+
+                GameManager.Instance.UpdateLevel();
+                UIManager.LevelCompleted();
             }
         }
     }

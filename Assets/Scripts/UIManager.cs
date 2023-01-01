@@ -9,6 +9,10 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject startPanel;
+    [SerializeField]
+    private GameObject winPanel;
+    [SerializeField]
+    private GameObject losePanel;
 
     [SerializeField]
     private TextMeshProUGUI levelText;
@@ -36,6 +40,8 @@ public class UIManager : MonoBehaviour
     public static Action<int> BallText;
     public static Action<int> MoneyText;
     public static Action DisableStartPanel;
+    public static Action LevelCompleted;
+    public static Action LevelFailed;
 
     private int ballCount;
     private int moneyCount;
@@ -45,6 +51,8 @@ public class UIManager : MonoBehaviour
         BallText += UpdateBallText;
         MoneyText += UpdateMoneyText;
         DisableStartPanel += CloseStartPanel;
+        LevelCompleted += LevelWin;
+        LevelFailed += LevelLose;
     }
 
     private void Start()
@@ -73,6 +81,16 @@ public class UIManager : MonoBehaviour
         moneyCount += newMoney;
         GameManager.Instance.SetTotalMoney(moneyCount);
         StartCoroutine(UpdateTextSlowly(moneyCount, moneyText));
+    }
+
+    private void LevelWin()
+    {
+        winPanel.SetActive(true);
+    }
+
+    private void LevelLose()
+    {
+        losePanel.SetActive(true);
     }
 
     public void RestartLevel()
@@ -142,5 +160,7 @@ public class UIManager : MonoBehaviour
         BallText -= UpdateBallText;
         MoneyText -= UpdateMoneyText;
         DisableStartPanel -= CloseStartPanel;
+        LevelCompleted -= LevelWin;
+        LevelFailed -= LevelLose;
     }
 }
