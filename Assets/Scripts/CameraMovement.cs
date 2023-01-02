@@ -18,6 +18,7 @@ public class CameraMovement : MonoBehaviour
     private Vector3 targetLookAt;
 
     private bool shouldRotate;
+    private bool isFinish;
     private Quaternion startRotation;
 
     public float rotationSpeed = 5f;
@@ -42,6 +43,12 @@ public class CameraMovement : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, newRot, Time.deltaTime * 2f);
 
             newPosition = targetBall.position + offset;
+
+            if (isFinish)
+            {
+                newPosition.x /= 2f;
+                newPosition.z -= 5f;
+            }
         }
         else
         {
@@ -83,6 +90,11 @@ public class CameraMovement : MonoBehaviour
     public void CanRotate(bool canRotate)
     {
         shouldRotate = canRotate;
+    }
+
+    public void ChangeOffsetForFinish()
+    {
+        isFinish = true;
     }
 
     public void RotateForCorner(Quaternion rotatePosition)

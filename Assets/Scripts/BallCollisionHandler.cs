@@ -44,6 +44,8 @@ public class BallCollisionHandler : MonoBehaviour
             //ballRigidbody.AddForce(new Vector3(0, -1f, 6f) * 1f, ForceMode.Impulse);
             //ballRigidbody.AddForce(0, -10, 10, ForceMode.Impulse);
             //ballRigidbody.velocity = Vector3.forward * 5f;
+
+            Camera.main.GetComponent<CameraMovement>().ChangeOffsetForFinish();
         }
 
         if (other.CompareTag("Corner"))
