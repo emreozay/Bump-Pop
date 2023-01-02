@@ -133,6 +133,5 @@ public class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         SaveData();
-        //PlayerPrefs.DeleteAll();
     }
 }
