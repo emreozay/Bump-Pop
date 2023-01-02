@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6172485522149669110}
   - component: {fileID: 796320173940964382}
   m_Layer: 0
-  m_Name: Ball_green
+  m_Name: Ball_tennis
   m_TagString: InactiveBall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 34426a60aa2506449abd63e93dd4e098, type: 2}
+  - {fileID: 2100000, guid: 17b68e384d83a42419d11770f4e9e84b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
