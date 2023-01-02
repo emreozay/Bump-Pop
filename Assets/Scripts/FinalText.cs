@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -28,23 +27,25 @@ public class FinalText : MonoBehaviour
     {
         if (other.CompareTag("InactiveBall"))
         {
-            //other.GetComponent<Rigidbody>().AddForce(Vector3.forward * 15f, ForceMode.Impulse);
+            SetFinalText();
+        }
+    }
 
-            if (remainingBall <= 0)
-                return;
+    private void SetFinalText()
+    {
+        if (remainingBall <= 0)
+            return;
 
-            remainingTimeForLose = 2f;
-            canFinish = true;
+        remainingTimeForLose = 2f;
+        canFinish = true;
 
-            remainingBall--;
-            finalText.text = remainingBall.ToString();
+        remainingBall--;
+        finalText.text = remainingBall.ToString();
 
-            if (remainingBall == 0)
-            {
-                //transform.GetChild(1).gameObject.SetActive(false);
-                DestroyChain();
-                canFinish = false;
-            }
+        if (remainingBall == 0)
+        {
+            DestroyChain();
+            canFinish = false;
         }
     }
 

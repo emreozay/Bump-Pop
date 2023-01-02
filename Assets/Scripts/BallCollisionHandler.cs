@@ -30,28 +30,22 @@ public class BallCollisionHandler : MonoBehaviour
     {
         if (other.CompareTag("Finish"))
         {
-            dragAndShoot.DisableShoot();
-
-            Rigidbody ballRigidbody = GetComponent<Rigidbody>();
-
-            ballRigidbody.constraints = RigidbodyConstraints.None;
-
-            ballRigidbody.velocity = Vector3.zero;
-            ballRigidbody.AddForce(Vector3.forward * 15f, ForceMode.Impulse);
-            //ballRigidbody.AddTorque(Vector3.right*100f, ForceMode.Impulse);
-            //ballRigidbody.velocity = Vector3.forward * 15f;
-
-            //ballRigidbody.AddForce(new Vector3(0, -1f, 6f) * 1f, ForceMode.Impulse);
-            //ballRigidbody.AddForce(0, -10, 10, ForceMode.Impulse);
-            //ballRigidbody.velocity = Vector3.forward * 5f;
-
-            Camera.main.GetComponent<CameraMovement>().ChangeOffsetForFinish();
+            FinishLineTriggered();
         }
+    }
 
-        if (other.CompareTag("Corner"))
-        {
-            Camera.main.GetComponent<CameraMovement>().RotateForCorner(other.transform.rotation);
-        }
+    private void FinishLineTriggered()
+    {
+        dragAndShoot.DisableShoot();
+
+        Rigidbody ballRigidbody = GetComponent<Rigidbody>();
+
+        ballRigidbody.constraints = RigidbodyConstraints.None;
+
+        ballRigidbody.velocity = Vector3.zero;
+        ballRigidbody.AddForce(Vector3.forward * 15f, ForceMode.Impulse);
+
+        Camera.main.GetComponent<CameraMovement>().ChangeOffsetForFinish();
     }
 
     public bool IsCollideWithBall()

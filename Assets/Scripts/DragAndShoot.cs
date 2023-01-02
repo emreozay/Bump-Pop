@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class DragAndShoot : MonoBehaviour
 {
@@ -16,8 +15,6 @@ public class DragAndShoot : MonoBehaviour
     [SerializeField]
     private float forceMultiplier = 3f;
 
-    private Vector3 firstPosition;
-    private Vector3 lastPosition;
     private Vector3 shootDirection;
 
     private List<Transform> ballList = new List<Transform>();
@@ -31,7 +28,6 @@ public class DragAndShoot : MonoBehaviour
     private Material lineMaterial;
 
     private float viewportXPosition;
-    private float viewportZPosition;
     private bool canShoot = true;
     private bool isShot;
 
@@ -61,18 +57,9 @@ public class DragAndShoot : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            lineRenderer.transform.localPosition = Vector3.zero;
-            lineRenderer.transform.rotation = Quaternion.identity; 
-            lineRenderer.gameObject.SetActive(true);
-            
             UIManager.DisableStartPanel();
 
-            firstBallRigidbody.velocity = Vector3.zero;
-            firstBallRigidbody.angularVelocity = Vector3.zero;
-
-            //lineRenderer.positionCount = 2;
-            firstPosition = new Vector3(firstBall.position.x, 0, firstBall.position.z);
-            //lineRenderer.SetPosition(0, firstPosition);
+            MousePressed();
         }
 
         if (Input.GetMouseButton(0))
@@ -83,7 +70,6 @@ public class DragAndShoot : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             lineRenderer.gameObject.SetActive(false);
-            //lineRenderer.positionCount = 0;
             cameraMovement.CanRotate(false);
 
             Shoot();
@@ -124,6 +110,16 @@ public class DragAndShoot : MonoBehaviour
             StartCoroutine(WaitForCheck());
     }
 
+    private void MousePressed()
+    {
+        lineRenderer.transform.localPosition = Vector3.zero;
+        lineRenderer.transform.rotation = Quaternion.identity;
+        lineRenderer.gameObject.SetActive(true);
+
+        firstBallRigidbody.velocity = Vector3.zero;
+        firstBallRigidbody.angularVelocity = Vector3.zero;
+    }
+
     private IEnumerator WaitForCheck()
     {
         yield return new WaitForSeconds(1f);
@@ -150,27 +146,10 @@ public class DragAndShoot : MonoBehaviour
     private void RenderLine()
     {
         viewportXPosition = mainCamera.ScreenToViewportPoint(Input.mousePosition).x;
-        viewportZPosition = mainCamera.ScreenToViewportPoint(Input.mousePosition).y;
 
-        //lastPosition.x = Mathf.Lerp(-10f, 10f, viewportXPosition);
-        //lastPosition.x = Mathf.Lerp(-50f, 50f, viewportXPosition);
-        //lastPosition.y = 0;
-        //lastPosition.z = Mathf.Lerp(firstPosition.z, 360f, viewportZPosition);
-        //lastPosition.z = firstBall.position.z + 10;
         float rotateAngle = Mathf.Lerp(-180f, 180f, viewportXPosition);
-        //lineRenderer.transform.RotateAround(firstBall.position, Vector3.up, rotateAngle * Time.deltaTime);
+
         lineRenderer.transform.rotation = Quaternion.Euler(0, rotateAngle, 0);
-        //var direction = (lastPosition - firstPosition).normalized * 10f;
-        //lastPosition = firstPosition + direction;
-
-        //lastPosition = lastPosition.normalized * 10f;
-        //lastPosition.z = firstBall.position.z + 10;
-        //lastPosition = firstBall.position + lastPosition.normalized * 10f;
-
-        //lineRenderer.SetPosition(1, lastPosition);
-
-        //cameraMovement.LookAtObject(lastPosition);
-        //cameraMovement.LookAtObject(lineRenderer.GetPosition(1));
         shootDirection = lineRenderer.transform.forward * 10f;
         cameraMovement.LookAtObject(lineRenderer.transform.forward * 10f + firstBall.position);
         cameraMovement.SetPositionAndRotationOfCamera(firstBall.position, lineRenderer.transform.rotation);
@@ -182,12 +161,7 @@ public class DragAndShoot : MonoBehaviour
     {
         canShoot = true;
         isShot = true;
-        /*
-        shootDirection.x = lastPosition.x - firstPosition.x;
-        shootDirection.y = 0;
-        shootDirection.z = 10;*/
 
-        //shootDirection = lastPosition - firstPosition;
         shootDirection.y = 0;
         firstBallRigidbody.AddForce(shootDirection * forceMultiplier, ForceMode.Impulse);
     }

@@ -58,7 +58,8 @@ public class GameManager : MonoBehaviour
 
     public void UpdateLevel()
     {
-        level++;
+        if (SceneManager.sceneCountInBuildSettings > level)
+            level++;
     }
 
     public void SetTotalMoney(int money)
@@ -132,6 +133,6 @@ public class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         SaveData();
-       // PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
     }
 }

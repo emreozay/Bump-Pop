@@ -1,7 +1,4 @@
-using Newtonsoft.Json.Linq;
-using System.Drawing;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class CameraMovement : MonoBehaviour
 {
@@ -38,8 +35,8 @@ public class CameraMovement : MonoBehaviour
     {
         if (!shouldRotate)
         {
-            Quaternion newRot = startRotation/* * rotationOffset*/;
-           // print(newRot);
+            Quaternion newRot = startRotation;
+
             transform.rotation = Quaternion.Slerp(transform.rotation, newRot, Time.deltaTime * 2f);
 
             newPosition = targetBall.position + offset;
@@ -52,16 +49,8 @@ public class CameraMovement : MonoBehaviour
         }
         else
         {
-            //transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
-            //newPosition -= new Vector3(5, -15, 5);
             newPosition -= new Vector3(0, -15, 5);
-            /*
-            //newPosition = targetBall.position + (targetBall.position - (targetLookAt.normalized * 0.05f));
-            //newPosition = targetBall.position + (targetBall.position - targetLookAt.normalized * 0.05f).normalized;
-            newPosition = targetBall.position + (targetBall.position - targetLookAt) * 1.5f;
-            newPosition.y = 18.17f;
-            //newPosition.z = targetBall.position.z - 10f;
-            */
+
             Vector3 lookDirection = targetLookAt - transform.position;
             lookDirection.Normalize();
             
@@ -95,12 +84,6 @@ public class CameraMovement : MonoBehaviour
     public void ChangeOffsetForFinish()
     {
         isFinish = true;
-    }
-
-    public void RotateForCorner(Quaternion rotatePosition)
-    {
-        //print(rotatePosition);
-        //rotationOffset = rotatePosition;
     }
 
     public void SetPositionAndRotationOfCamera(Vector3 cameraPosition, Quaternion cameraRotation)
