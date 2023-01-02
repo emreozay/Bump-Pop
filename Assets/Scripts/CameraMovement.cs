@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using System.Drawing;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
@@ -10,7 +11,9 @@ public class CameraMovement : MonoBehaviour
     [SerializeField]
     private float followSpeed = 4f;
 
+    private Vector3 newPosition;
     private Vector3 offset;
+    private Quaternion newRotation;
 
     private Vector3 targetLookAt;
 
@@ -32,28 +35,35 @@ public class CameraMovement : MonoBehaviour
 
     private void SmoothFollow()
     {
-        Vector3 newPosition;
-
         if (!shouldRotate)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, startRotation, Time.deltaTime * 2f);
+            Quaternion newRot = startRotation/* * rotationOffset*/;
+           // print(newRot);
+            transform.rotation = Quaternion.Slerp(transform.rotation, newRot, Time.deltaTime * 2f);
 
             newPosition = targetBall.position + offset;
         }
         else
         {
-            newPosition = targetBall.position + (targetBall.position - (targetLookAt.normalized * 0.05f));
+            //transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
+            //newPosition -= new Vector3(5, -15, 5);
+            newPosition -= new Vector3(0, -15, 5);
+            /*
+            //newPosition = targetBall.position + (targetBall.position - (targetLookAt.normalized * 0.05f));
+            //newPosition = targetBall.position + (targetBall.position - targetLookAt.normalized * 0.05f).normalized;
+            newPosition = targetBall.position + (targetBall.position - targetLookAt) * 1.5f;
             newPosition.y = 18.17f;
-            newPosition.z = targetBall.position.z - 10f;
-
+            //newPosition.z = targetBall.position.z - 10f;
+            */
             Vector3 lookDirection = targetLookAt - transform.position;
             lookDirection.Normalize();
-
+            
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDirection), rotationSpeed * Time.deltaTime);
+            
         }
 
-        Vector3 smoothFollow = Vector3.Lerp(transform.position, newPosition, followSpeed * Time.deltaTime);
-        transform.position = smoothFollow;
+        Vector3 smoothFollow = Vector3.Lerp(transform.localPosition, newPosition, followSpeed * Time.deltaTime);
+        transform.localPosition = smoothFollow;
     }
 
     public void UpdateTargetObject(Transform target)
@@ -73,5 +83,21 @@ public class CameraMovement : MonoBehaviour
     public void CanRotate(bool canRotate)
     {
         shouldRotate = canRotate;
+    }
+
+    public void RotateForCorner(Quaternion rotatePosition)
+    {
+        //print(rotatePosition);
+        //rotationOffset = rotatePosition;
+    }
+
+    public void SetPositionAndRotationOfCamera(Vector3 cameraPosition, Quaternion cameraRotation)
+    {
+        shouldRotate = true;
+        newPosition = cameraPosition;
+        newRotation = cameraRotation;
+
+        Vector3 v = newRotation.eulerAngles;
+        newRotation = Quaternion.Euler(v.x + 45f, v.y, v.z);
     }
 }

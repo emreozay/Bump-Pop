@@ -43,6 +43,11 @@ public class BallCollisionHandler : MonoBehaviour
             //ballRigidbody.AddForce(0, -10, 10, ForceMode.Impulse);
             //ballRigidbody.velocity = Vector3.forward * 5f;
         }
+
+        if (other.CompareTag("Corner"))
+        {
+            Camera.main.GetComponent<CameraMovement>().RotateForCorner(other.transform.rotation);
+        }
     }
 
     public bool IsCollideWithBall()
