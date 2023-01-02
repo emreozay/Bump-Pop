@@ -1,8 +1,12 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class FinalText : MonoBehaviour
 {
+    [SerializeField]
+    private Transform chainParent;
+
     private TextMeshPro finalText;
 
     private int remainingBall;
@@ -37,7 +41,8 @@ public class FinalText : MonoBehaviour
 
             if (remainingBall == 0)
             {
-                transform.GetChild(1).gameObject.SetActive(false);
+                //transform.GetChild(1).gameObject.SetActive(false);
+                DestroyChain();
                 canFinish = false;
             }
         }
@@ -51,12 +56,30 @@ public class FinalText : MonoBehaviour
 
             if (remainingTimeForLose <= 0f)
             {
-                print("Finish");
                 canFinish = false;
 
                 GameManager.Instance.UpdateLevel();
                 UIManager.LevelCompleted();
             }
+        }
+    }
+
+    private void DestroyChain()
+    {
+        foreach (Transform childTransform in chainParent)
+        {
+            FixedJoint childFixedJoint = childTransform.GetComponent<FixedJoint>();
+
+            if (childFixedJoint != null)
+                Destroy(childFixedJoint);
+        }
+
+        foreach (Transform childTransform in chainParent)
+        {
+            Rigidbody childRigidbody = childTransform.GetComponent<Rigidbody>();
+            childRigidbody.AddForce(new Vector3(Random.Range(-20f, 20f), 10f, 2f), ForceMode.Impulse);
+
+            Destroy(childTransform.gameObject, 1f);
         }
     }
 }
