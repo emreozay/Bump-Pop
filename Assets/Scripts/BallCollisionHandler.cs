@@ -34,6 +34,8 @@ public class BallCollisionHandler : MonoBehaviour
 
             Rigidbody ballRigidbody = GetComponent<Rigidbody>();
 
+            ballRigidbody.constraints = RigidbodyConstraints.None;
+
             ballRigidbody.velocity = Vector3.zero;
             ballRigidbody.AddForce(Vector3.forward * 15f, ForceMode.Impulse);
             //ballRigidbody.AddTorque(Vector3.right*100f, ForceMode.Impulse);
