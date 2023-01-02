@@ -121,7 +121,8 @@ public class UIManager : MonoBehaviour
 
     public void NextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        if (SceneManager.sceneCountInBuildSettings >= GameManager.Instance.Level)
+            SceneManager.LoadScene(GameManager.Instance.Level - 1);
     }
 
     public void BuyBall()

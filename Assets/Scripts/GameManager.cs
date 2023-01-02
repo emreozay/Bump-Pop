@@ -52,7 +52,8 @@ public class GameManager : MonoBehaviour
     {
         LoadData();
 
-        SceneManager.LoadScene(level - 1);
+        if (SceneManager.sceneCountInBuildSettings >= level)
+            SceneManager.LoadScene(level - 1);
     }
 
     public void UpdateLevel()
@@ -131,6 +132,6 @@ public class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         SaveData();
-        //PlayerPrefs.DeleteAll();
+       // PlayerPrefs.DeleteAll();
     }
 }
